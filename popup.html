@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="popup.css">
+    <style>
+        body {
+          width: 450px;
+            padding: 12px;
+            display: flex;
+        }
+
+        .btn {
+            margin-right: 4px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <h2>Good Morning</h2>
+          <h2>Nazariy</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col progress-container">
+          <div id="progress-bar">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col actionInput">
+          <h2>TODAY'S PLAN OF ACTION</h2>
+          <div class="actionInput__inputContainer">
+            <input type="text" class="form-control" placeholder="Add Action Item, press Enter">
+            <div class="actionInput__suggestions">
+                <button type="button" class="btn btn-outline-dark btn-sm">
+                  <i class="fas fa-plus"></i>
+                  Gym
+                </button>
+                <button type="button" class="btn btn-outline-dark btn-sm">
+                  <i class="fas fa-plus"></i>
+                  Read this site
+                </button>
+                <button type="button" class="btn btn-outline-dark btn-sm">
+                  <i class="fas fa-plus"></i>
+                  Meditation
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col actionItems">
+          <div class="actionItem__item">
+            <div class="actionItem__check">
+              <div class="actionItem__checkBox">
+
+              </div>
+            </div>
+            <div class="actionItem__text">
+              Order Groceries
+            </div>
+            <div class="actionItem__delete">
+              <i class="fas fa-times"></i>
+            </div>
+          </div>
+          <div class="actionItem__item">
+            <div class="actionItem__check">
+              <div class="actionItem__checkBox">
+
+              </div>
+            </div>
+            <div class="actionItem__text">
+              Order Groceries
+            </div>
+            <div class="actionItem__delete">
+              <i class="fas fa-times"></i>
+            </div>
+          </div>
+          <div class="actionItem__item">
+            <div class="actionItem__check">
+              <div class="actionItem__checkBox">
+
+              </div>
+            </div>
+            <div class="actionItem__text">
+              Order Groceries
+            </div>
+            <div class="actionItem__delete">
+              <i class="fas fa-times"></i>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+    <script src="progressbar.js"></script>
+    <script src="popup.js"></script>
+    <script src="fontawesome.js"></script>
+  </body>
+</html>
