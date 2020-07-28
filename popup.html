@@ -6,8 +6,8 @@
     <style>
         body {
           width: 450px;
-            padding: 12px;
-            display: flex;
+          padding: 12px;
+          display: flex;
         }
 
         .btn {
@@ -18,12 +18,13 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col">
-          <h2>Good Morning</h2>
-          <h2>Nazariy</h2>
+        <div class="col greeting">
+          <h2 class="greeting__type">Good Morning,</h2>
+          <h2 class="greeting__name">Nazariy</h2>
+          <img src="./images/morning.png" alt="morning sun">
         </div>
       </div>
-      <div class="row">
+      <div class="row mb-4">
         <div class="col progress-container">
           <div id="progress-bar">
           </div>
@@ -31,9 +32,11 @@
       </div>
       <div class="row">
         <div class="col actionInput">
-          <h2>TODAY'S PLAN OF ACTION</h2>
+          <h5 class="actionInput__text mb-3">TODAY'S PLAN OF ACTION</h5>
           <div class="actionInput__inputContainer">
-            <input type="text" class="form-control" placeholder="Add Action Item, press Enter">
+            <div class="input-group input-group-lg">
+              <input type="text" class="form-control" placeholder="Add Action Item, press Enter">
+            </div>
             <div class="actionInput__suggestions">
                 <button type="button" class="btn btn-outline-dark btn-sm">
                   <i class="fas fa-plus"></i>
@@ -53,7 +56,7 @@
       </div>
       <div class="row">
         <div class="col actionItems">
-          <div class="actionItem__item">
+          <div class="actionItem__item completed">
             <div class="actionItem__check">
               <div class="actionItem__checkBox">
 
