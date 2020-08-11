@@ -51,13 +51,18 @@
 }
 
 .actionInput__text {
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
 }
 
 .actionItem__check {
     width: 40px;
     display: flex;
     justify-content: center;
+    cursor: pointer;
+}
+
+.actionItem__check:hover i {
+    opacity: 1;
 }
 
 .actionItem__item {
@@ -69,9 +74,20 @@
     align-items: center;
 }
 
+.actionItem__checkBox i {
+    color: #56e452;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
 .actionItem__item.completed {
     background-color: #b0f1ab;
 }
+
+.actionItem__item.completed .actionItem__checkBox i {
+    opacity: 1 !important;
+}
+
 
 .actionItem__item.completed .actionItem__checkBox {
     border-color: #56e452;
@@ -91,6 +107,9 @@
     width: 30px;
     height: 30px;
     border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .actionInput__inputContainer input {
@@ -116,8 +135,8 @@
 }
 
 .actionInput__suggestions .btn-outline-dark {
-    color: #727272;
-    border-color: #727272;
+    color: rgba(151,151,151, 0.63);
+    border-color: rgba(151,151,151, 0.63);
 }
 
 

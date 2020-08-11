@@ -32,11 +32,13 @@
       </div>
       <div class="row">
         <div class="col actionInput">
-          <h5 class="actionInput__text mb-3">TODAY'S PLAN OF ACTION</h5>
+          <h5 class="actionInput__text">TODAY'S PLAN OF ACTION</h5>
           <div class="actionInput__inputContainer">
-            <div class="input-group input-group-lg">
-              <input type="text" class="form-control" placeholder="Add Action Item, press Enter">
-            </div>
+            <form id="addItemForm">
+              <div class="input-group input-group-lg">
+                  <input name="itemText" type="text" class="form-control" placeholder="Add Action Item, press Enter">
+              </div>
+            </form>
             <div class="actionInput__suggestions">
                 <button type="button" class="btn btn-outline-dark btn-sm">
                   <i class="fas fa-plus"></i>
@@ -59,7 +61,7 @@
           <div class="actionItem__item completed">
             <div class="actionItem__check">
               <div class="actionItem__checkBox">
-
+                <i class="fas fa-check"></i>
               </div>
             </div>
             <div class="actionItem__text">
@@ -69,41 +71,18 @@
               <i class="fas fa-times"></i>
             </div>
           </div>
-          <div class="actionItem__item">
-            <div class="actionItem__check">
-              <div class="actionItem__checkBox">
-
-              </div>
-            </div>
-            <div class="actionItem__text">
-              Order Groceries
-            </div>
-            <div class="actionItem__delete">
-              <i class="fas fa-times"></i>
-            </div>
-          </div>
-          <div class="actionItem__item">
-            <div class="actionItem__check">
-              <div class="actionItem__checkBox">
-
-              </div>
-            </div>
-            <div class="actionItem__text">
-              Order Groceries
-            </div>
-            <div class="actionItem__delete">
-              <i class="fas fa-times"></i>
-            </div>
-          </div>
-
-
         </div>
       </div>
-
-
     </div>
-    <script src="progressbar.js"></script>
-    <script src="popup.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="./packages/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="./packages/firebase-firestore.js"></script>
+    <script src="./js/firebase-init.js"></script>
+    <script src="./js/actionItemsUtils.js"></script>
+    <script src="./packages/progressbar.js"></script>
+    <script src="./js/script.js"></script>
     <script src="fontawesome.js"></script>
   </body>
 </html>
