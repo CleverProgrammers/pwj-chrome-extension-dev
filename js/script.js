@@ -5,11 +5,14 @@ let storage = chrome.storage.local;
 const actionItemChanges = (changes) => {
   changes.forEach(change => {
     if(change.type == 'added'){
-      if(!document.querySelector(`[data-id=${change.doc.data().id}]`)){
+      // check if the same element doesn't exist
+      if(!document.querySelector(`[data-id="${change.doc.id}"]`)){
         renderActionItem(change.doc);
       }
-    } else {
-      console.log("something else");
+    } else if (change.type == 'removed'){
+      console.log("remove");
+      const element = document.querySelector(`[data-id="${change.doc.id}"]`);
+      if(element) element.remove();
     }
   })
   chrome.storage.local.set({
@@ -33,29 +36,46 @@ addItemForm.addEventListener('submit', (e)=>{
     website_link: null
   })
   addItemForm.itemText.value = '';
-})  
+})
+
+const createCompletedListener = () => {
+}
 
 const renderActionItem = (item) => {
     const data = item.data();
+    console.log(data);
     let element = document.createElement('div');
+    let deleteEl = document.createElement('div');
+    let checkEl = document.createElement('div');
+    let textEl = document.createElement('div');
     element.classList.add('actionItem__item');
+    deleteEl.classList.add('actionItem__delete');
+    checkEl.classList.add('actionItem__check');
+    textEl.classList.add('actionItem__text');
     if(data.completed){
       element.classList.add('completed');
     }
-    element.setAttribute('item-id', data.id);
-    element.innerHTML = `
-      <div class="actionItem__check">
-        <div class="actionItem__checkBox">
-          <i class="fas fa-check"></i>
-        </div>
-      </div>
-      <div class="actionItem__text">
-        ${data.text}
-      </div>
-      <div class="actionItem__delete">
-        <i class="fas fa-times"></i>
-      </div>
-    `
+    element.setAttribute('data-id', item.id );
+    deleteEl.innerHTML = `<i class="fas fa-times"></i>`;
+    checkEl.innerHTML = ` 
+      <div class="actionItem__checkBox">
+        <i class="fas fa-check"></i>
+      </div>`
+    checkEl.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const parent = e.target.parentElement.parentElement.parentElement;
+      parent.classList.toggle('completed')
+      ActionItems.markCompleted(parent.getAttribute('data-id'));
+    }, false)
+    textEl.textContent = data.text;
+    deleteEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = e.target.parentElement.parentElement.getAttribute('data-id');
+      ActionItems.remove(id);
+    })
+    element.appendChild(checkEl);
+    element.appendChild(textEl);
+    element.appendChild(deleteEl);
     itemsList.prepend(element);
 }
 

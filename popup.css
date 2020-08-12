@@ -39,6 +39,12 @@
     text-align: center;
     font-size: 20px;
     color: rgba(151,151,151, 0.27);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.actionItem__delete:hover {
+    color: #D00000;
 }
 
 .actionInput__inputContainer .input-group-lg > .form-control {
@@ -46,7 +52,7 @@
     background-color: #F6F6F6;
     border-radius: 10px;
     font-weight: bold;
-    color: rgba(151, 151, 151, 0.63);
+    color: #727272;
     height: 60px;
 }
 
