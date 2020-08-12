@@ -2,10 +2,11 @@ class ActionItems {
 
     static collectionName = 'action-items';
 
-    static async get() {
-        return await db.collection(ActionItems.collectionName).get().then(function(querySnapshot) {
-            return querySnapshot.docs;
-        });
+    static get(callback) {
+        db.collection(ActionItems.collectionName).orderBy('added', 'asc').onSnapshot((snapshot)=>{
+            let changes = snapshot.docChanges();
+            callback(changes);
+        })
     }
 
     static add(actionItem){

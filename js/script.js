@@ -2,17 +2,26 @@ let itemsList = document.querySelector('.actionItems');
 let addItemForm = document.querySelector('#addItemForm');
 let storage = chrome.storage.local;
 
+const actionItemChanges = (changes) => {
+  changes.forEach(change => {
+    if(change.type == 'added'){
+      if(!document.querySelector(`[data-id=${change.doc.data().id}]`)){
+        renderActionItem(change.doc);
+      }
+    } else {
+      console.log("something else");
+    }
+  })
+  chrome.storage.local.set({
+    itemsHtml: itemsList.innerHTML
+  })
+}
+
 storage.get(['itemsHtml'], (data)=>{
   if(data.itemsHtml){
     itemsList.innerHTML = data.itemsHtml;
-  } else {
-    ActionItems.get().then((actionItems)=>{
-      renderActionItems(actionItems);
-      chrome.storage.local.set({
-        itemsHtml: itemsList.innerHTML
-      })
-    });
   }
+  ActionItems.get(actionItemChanges);
 })
 
 addItemForm.addEventListener('submit', (e)=>{
@@ -26,8 +35,7 @@ addItemForm.addEventListener('submit', (e)=>{
   addItemForm.itemText.value = '';
 })  
 
-const renderActionItems = (items) => {
-  items.forEach((item)=>{
+const renderActionItem = (item) => {
     const data = item.data();
     let element = document.createElement('div');
     element.classList.add('actionItem__item');
@@ -48,8 +56,7 @@ const renderActionItems = (items) => {
         <i class="fas fa-times"></i>
       </div>
     `
-    itemsList.appendChild(element);
-  })
+    itemsList.prepend(element);
 }
 
 var circle = new ProgressBar.Circle('#progress-bar', {
