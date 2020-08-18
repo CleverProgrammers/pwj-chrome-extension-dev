@@ -1,8 +1,12 @@
 let itemsList = document.querySelector('.actionItems');
 let addItemForm = document.querySelector('#addItemForm');
 let storage = chrome.storage.local;
+let circle;
+let totalItems;
+let completedItems 
 
 const actionItemChanges = (changes) => {
+  console.log(changes);
   changes.forEach(change => {
     if(change.type == 'added'){
       // check if the same element doesn't exist
@@ -10,7 +14,6 @@ const actionItemChanges = (changes) => {
         renderActionItem(change.doc);
       }
     } else if (change.type == 'removed'){
-      console.log("remove");
       const element = document.querySelector(`[data-id="${change.doc.id}"]`);
       if(element) element.remove();
     }
@@ -23,6 +26,8 @@ const actionItemChanges = (changes) => {
 storage.get(['itemsHtml'], (data)=>{
   if(data.itemsHtml){
     itemsList.innerHTML = data.itemsHtml;
+    createCompletedListener();
+    createDeleteListener();
   }
   ActionItems.get(actionItemChanges);
 })
@@ -38,12 +43,41 @@ addItemForm.addEventListener('submit', (e)=>{
   addItemForm.itemText.value = '';
 })
 
+const handleCompletedEventListener = (e) => {
+  const id = e.target.parentElement.getAttribute('data-id');
+  const parent = e.target.parentElement;
+  if(parent.classList.contains('completed')){
+    ActionItems.markUnmarkCompleted(id, null);
+    parent.classList.remove('completed');
+    console.log("remove");
+  } else {
+    ActionItems.markUnmarkCompleted(id, new Date());
+    parent.classList.add('completed');
+    console.log('add');
+  }
+}
+
 const createCompletedListener = () => {
+  const elements = document.querySelectorAll('.actionItem__check');
+  elements.forEach((element)=>{
+    element.addEventListener('click', handleCompletedEventListener)
+  })
+}
+
+const handleDeleteEventListener = (e) => {
+  const id = e.target.parentElement.getAttribute('data-id');
+  ActionItems.remove(id);
+}
+
+const createDeleteListener = () => {
+  const elements = document.querySelectorAll('.actionItem__delete');
+  elements.forEach((element)=>{
+    element.addEventListener('click', handleDeleteEventListener);
+  })
 }
 
 const renderActionItem = (item) => {
     const data = item.data();
-    console.log(data);
     let element = document.createElement('div');
     let deleteEl = document.createElement('div');
     let checkEl = document.createElement('div');
@@ -55,31 +89,26 @@ const renderActionItem = (item) => {
     if(data.completed){
       element.classList.add('completed');
     }
+    checkEl.addEventListener('click', handleCompletedEventListener);
     element.setAttribute('data-id', item.id );
     deleteEl.innerHTML = `<i class="fas fa-times"></i>`;
     checkEl.innerHTML = ` 
       <div class="actionItem__checkBox">
         <i class="fas fa-check"></i>
       </div>`
-    checkEl.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      const parent = e.target.parentElement.parentElement.parentElement;
-      parent.classList.toggle('completed')
-      ActionItems.markCompleted(parent.getAttribute('data-id'));
-    }, false)
+    deleteEl.addEventListener('click', handleDeleteEventListener);
     textEl.textContent = data.text;
-    deleteEl.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const id = e.target.parentElement.parentElement.getAttribute('data-id');
-      ActionItems.remove(id);
-    })
     element.appendChild(checkEl);
     element.appendChild(textEl);
     element.appendChild(deleteEl);
     itemsList.prepend(element);
 }
 
-var circle = new ProgressBar.Circle('#progress-bar', {
+const getProgress = (circleProgress) => {
+  
+}
+
+circle = new ProgressBar.Circle('#progress-bar', {
     color: '#010101',
     strokeWidth: 6,
     trailWidth: 2,
@@ -101,11 +130,10 @@ var circle = new ProgressBar.Circle('#progress-bar', {
         } else {
           circle.setText(value);
         }
-    
       }
 });
 
 circle.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
 circle.text.style.fontSize = '2rem';
 
-circle.animate(1.0);  
+circle.animate(0.5);  

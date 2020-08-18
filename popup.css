@@ -4,6 +4,14 @@
     position: relative;
 }
 
+.actionItem__check * {
+    pointer-events: none;
+}
+
+.actionItem__delete * {
+    pointer-events: none;
+}
+
 .greeting img {
     position: absolute;
     height: 180px;

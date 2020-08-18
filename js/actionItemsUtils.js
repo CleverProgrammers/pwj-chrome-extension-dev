@@ -9,13 +9,17 @@ class ActionItems {
         })
     }
 
+    static async getCurrentItems(){
+        
+    }
+
     static add(actionItem){
         db.collection(ActionItems.collectionName).add(actionItem);
     }
 
-    static markCompleted(docId) {
-        db.collection(ActionItems.collectionName).doc(docId).set({
-            completed: new Date()
+    static markUnmarkCompleted(docId, completedStatus) {
+        db.collection(ActionItems.collectionName).doc(docId).update({
+            completed: completedStatus
         })
 
     }
